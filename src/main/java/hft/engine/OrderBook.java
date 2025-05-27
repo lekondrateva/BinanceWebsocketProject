@@ -17,11 +17,11 @@ public class OrderBook {
     public void addOrder(Order order) {
         if (order.getPrice() <= 0) {
             // Рыночная заявка (price = 0 или отрицательная)
-            System.out.println("📥 Market order: " + order);
+            System.out.println("Market order: " + order);
             matchMarketOrder(order);
         } else {
             // Лимитная заявка
-            System.out.println("📥 Limit order: " + order);
+            System.out.println("Limit order: " + order);
             if (order.getSide() == Side.BUY) {
                 match(order, asks);
                 if (order.getQuantity() > 0) addToBook(order, bids);
@@ -64,8 +64,6 @@ public class OrderBook {
                 //исполняем ордер по минимальному объему
                 double executedQty = Math.min(incoming.getQuantity(), resting.getQuantity());
 
-                System.out.printf("✅ Match: %s <--> %s, qty=%.2f\n", incoming, resting, executedQty);
-
                 // Сохраняем сделку в историю
                 tradeHistory.add(new Trade(
                         incoming.getSide() == Side.BUY ? incoming.getId() : resting.getId(),
@@ -93,7 +91,7 @@ public class OrderBook {
     private void addToBook(Order order, TreeMap<Double, List<Order>> book) {
         book.computeIfAbsent(order.getPrice(), k -> new ArrayList<>()).add(order);
         orderById.put(order.getId(), order);
-        System.out.println("📥 Added to book: " + order);
+        System.out.println("Added to book: " + order);
     }
 
     public void cancelOrder(String orderId) {
@@ -106,11 +104,11 @@ public class OrderBook {
             ordersAtPrice.removeIf(o -> o.getId().equals(orderId));
             if (ordersAtPrice.isEmpty()) book.remove(order.getPrice());
         }
-        System.out.println("❌ Order cancelled: " + orderId);
+        System.out.println("Order cancelled: " + orderId);
     }
 
     public void printBook() {
-        System.out.println("\n📊 ORDER BOOK");
+        System.out.println("ORDER BOOK");
         System.out.println("ASKS:");
         asks.forEach((price, orders) -> System.out.printf("%.2f : %s\n", price, orders));
         System.out.println("BIDS:");
@@ -146,7 +144,7 @@ public class OrderBook {
     }
 
     public void printTradeHistory() {
-        System.out.println("\n📈 TRADE HISTORY:");
+        System.out.println("TRADE HISTORY:");
         for (Trade trade : tradeHistory) {
             System.out.println(trade);
         }

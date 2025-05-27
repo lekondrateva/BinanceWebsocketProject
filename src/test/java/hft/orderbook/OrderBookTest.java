@@ -18,7 +18,7 @@ public class OrderBookTest {
         ob.addOrder(new Order("o3", 102.0, 1.0, Side.SELL));  // продам по 102 → не матчится
         ob.addOrder(new Order("o4", 103.0, 3.0, Side.SELL));  // продам по 103 → не матчится
         ob.addOrder(new Order("o5", 101.0, 2.0, Side.BUY));   // куплю по 101 → не матчится
-        ob.cancelOrder("o1");                                 // удаляем o1 (BUY 100)
+        ob.cancelOrder("o1");                                           // удаляем o1 (BUY 100)
 
         ob.printBook();
 

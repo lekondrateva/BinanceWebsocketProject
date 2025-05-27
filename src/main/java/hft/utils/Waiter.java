@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public class Waiter {
 
     public static void waitFor(Runnable assertion, int timeoutMs, int pollIntervalMs) {
-        log.info("⏳ waitFor(assertion) started");
+        log.info("waitFor(assertion) started");
 
         try {
             Awaitility.await()
@@ -25,13 +25,13 @@ public class Waiter {
                         log.info("✅ Assertion passed");
                     });
         } catch (ConditionTimeoutException e) {
-            log.error("❌ Timeout: assertion not passed within {} ms", timeoutMs);
+            log.error("Timeout: assertion not passed within {} ms", timeoutMs);
             throw e;
         }
     }
 
     public static <T> void waitFor(Supplier<T> actualSupplier, T expected, int timeoutMs, int pollIntervalMs) {
-        log.info("⏳ waitFor(value == expected) started: expecting {}", expected);
+        log.info("waitFor(value == expected) started: expecting {}", expected);
 
         try {
             Awaitility.await()
@@ -43,9 +43,9 @@ public class Waiter {
                         return Objects.equals(actual, expected);
                     });
 
-            log.info("✅ Value matched expected: {}", expected);
+            log.info("Value matched expected: {}", expected);
         } catch (ConditionTimeoutException e) {
-            log.error("❌ Timeout: expected = {}, but not reached in {} ms", expected, timeoutMs);
+            log.error("Timeout: expected = {}, but not reached in {} ms", expected, timeoutMs);
             throw e;
         }
     }
@@ -60,13 +60,13 @@ public class Waiter {
                     .until(() -> {
                         T actual = actualSupplier.get();
                         boolean passed = condition.test(actual);
-                        log.debug("🔁 Condition check: value = {}, passed = {}", actual, passed);
+                        log.debug("Condition check: value = {}, passed = {}", actual, passed);
                         return passed;
                     });
 
-            log.info("✅ Condition satisfied");
+            log.info("Condition satisfied");
         } catch (ConditionTimeoutException e) {
-            log.error("❌ Timeout: condition not met within {} ms", timeoutMs);
+            log.error("Timeout: condition not met within {} ms", timeoutMs);
             throw e;
         }
     }
@@ -80,13 +80,13 @@ public class Waiter {
                     .pollInterval(Duration.ofMillis(pollIntervalMs))
                     .until(() -> {
                         T result = supplier.get();
-                        log.debug("🔁 Got: {}", result);
+                        log.debug("Got: {}", result);
                         return result != null;
                     });
 
-            log.info("✅ Value is not null");
+            log.info("Value is not null");
         } catch (ConditionTimeoutException e) {
-            log.error("❌ Timeout: value stayed null within {} ms", timeoutMs);
+            log.error("Timeout: value stayed null within {} ms", timeoutMs);
             throw e;
         }
     }

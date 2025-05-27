@@ -1,7 +1,6 @@
 package hft.websocket;
 
 import hft.models.TradeMessage;
-import hft.utils.Waiter;
 import hft.utils.WebSocketClient;
 import org.junit.jupiter.api.Test;
 
